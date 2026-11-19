@@ -1,7 +1,7 @@
 """Recycling Safety Vision Pro: High-Speed Dual-Mode Web Application.
 
-Features an upgraded Industrial Command Center UI theme with 2x2 grid
-intermediate OpenCV pipeline visualizations matching top container proportions.
+Updated with modern Streamlit parameter syntax (width="stretch") to eliminate 
+deprecation warnings.
 """
 
 from __future__ import annotations
@@ -695,12 +695,12 @@ with tab_opencv:
     c1.image(
         to_rgb(original),
         caption=f"Input Image: {uploaded.name}",
-        use_container_width=True,
+        width="stretch",
     )
     c2.image(
         views["Annotated Result"],
         caption="OpenCV Hazard Segmentation Output",
-        use_container_width=True,
+        width="stretch",
     )
 
     st.markdown("<br>", unsafe_allow_html=True)
@@ -711,12 +711,12 @@ with tab_opencv:
         p1.image(
             views["HSV Colour Space"],
             caption="1. HSV Colour Space",
-            use_container_width=True,
+            width="stretch",
         )
         p2.image(
             views["Filtered Image"],
             caption="2. Bilateral / Gaussian Filter",
-            use_container_width=True,
+            width="stretch",
         )
 
         st.markdown("<br>", unsafe_allow_html=True)
@@ -725,12 +725,12 @@ with tab_opencv:
         p3.image(
             views["Canny Edges"],
             caption="3. Auto-Canny Edges",
-            use_container_width=True,
+            width="stretch",
         )
         p4.image(
             views["Morphology Mask"],
             caption="4. Morphological Binary Mask",
-            use_container_width=True,
+            width="stretch",
         )
 
     st.markdown("<br>", unsafe_allow_html=True)
@@ -748,7 +748,7 @@ with tab_opencv:
     st.subheader("📋 Classical CV Detailed Inspection Table")
     if classical_dets:
         df_cv = pd.DataFrame([asdict(d) for d in classical_dets])
-        st.dataframe(df_cv, use_container_width=True, hide_index=True)
+        st.dataframe(df_cv, width="stretch", hide_index=True)
 
         d1, d2 = st.columns(2)
         d1.download_button(
@@ -791,12 +791,12 @@ with tab_yolo:
             yc1.image(
                 to_rgb(original),
                 caption=f"Input Image: {uploaded.name}",
-                use_container_width=True,
+                width="stretch",
             )
             yc2.image(
                 yolo_img,
                 caption=f"YOLOv8 ({model_name}) Output",
-                use_container_width=True,
+                width="stretch",
             )
 
             st.markdown("<br>", unsafe_allow_html=True)
@@ -814,7 +814,7 @@ with tab_yolo:
             st.subheader("📋 YOLO Inspection Table")
             if yolo_dets:
                 df_yolo = pd.DataFrame([asdict(d) for d in yolo_dets])
-                st.dataframe(df_yolo, use_container_width=True, hide_index=True)
+                st.dataframe(df_yolo, width="stretch", hide_index=True)
 
                 yd1, yd2 = st.columns(2)
                 yd1.download_button(
@@ -843,13 +843,13 @@ with tab_benchmark:
     bm_c1.image(
         views["Annotated Result"],
         caption=f"Classical OpenCV ({cv_latency:.1f} ms)",
-        use_container_width=True,
+        width="stretch",
     )
     if YOLO is not None:
         bm_c2.image(
             yolo_img,
             caption=f"YOLOv8 AI ({yolo_latency:.1f} ms)",
-            use_container_width=True,
+            width="stretch",
         )
 
     st.markdown("#### 📊 Metric Summary Comparison")
@@ -877,4 +877,4 @@ with tab_benchmark:
             "Zero-Training": "No (Pretrained/Fine-tuned)",
         },
     ])
-    st.dataframe(comp_df, use_container_width=True, hide_index=True)
+    st.dataframe(comp_df, width="stretch", hide_index=True)
